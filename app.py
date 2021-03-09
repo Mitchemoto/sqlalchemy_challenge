@@ -114,7 +114,10 @@ def tobs():
 def start_date(start_date):
     # Create our session (link) from Python to the DB
     session = Session(engine)
-
+    
+    #choose start date to enter into query
+    start_date="2016-08-24"
+    
     #query all tobs to produce list of tmin, tavg, tmax for given start date
     results=session.query(func.min(Measurement.tobs),func.avg(Measurement.tobs),\
     	func.max(Measurement.tobs).filter(Measurement.date>=start_date))
@@ -135,9 +138,14 @@ def start_date(start_date):
 def start_end_date(start_date,end_date):
     # Create our session (link) from Python to the DB
     session = Session(engine)
+    
+    #choose start and end date period to enter into query
+    start_date="2016-08-24"
+    end_date="2017-08-23"
+    
     #query all tobs to produce list of tmin, tavg, tmax for given date range
-    results=session.query(func.min(Measurement.tobs),func.avg(Measurement.tobs),\
-    	func.max(Measurement.tobs)).filter(Measurement.date>=start_date)\
+    results=session.query(func.min(Measurement.tobs),func.avg(Measurement.tobs)\
+    	,func.max(Measurement.tobs)).filter(Measurement.date>=start_date)\
     	.filter(Measurement.date<=end_date).all()
 
     session.close()
